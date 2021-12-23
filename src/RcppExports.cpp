@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // EigenR_det_real
 double EigenR_det_real(const Eigen::MatrixXd& M);
 RcppExport SEXP _EigenR_EigenR_det_real(SEXP MSEXP) {
@@ -345,6 +350,192 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// EigenR_exp_real
+Eigen::MatrixXd EigenR_exp_real(const Eigen::MatrixXd& M);
+RcppExport SEXP _EigenR_EigenR_exp_real(SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_exp_real(M));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_exp_cplx
+Rcpp::List EigenR_exp_cplx(const Eigen::MatrixXd& Re, const Eigen::MatrixXd& Im);
+RcppExport SEXP _EigenR_EigenR_exp_cplx(SEXP ReSEXP, SEXP ImSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Re(ReSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Im(ImSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_exp_cplx(Re, Im));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_log_real
+Eigen::MatrixXd EigenR_log_real(const Eigen::MatrixXd& M);
+RcppExport SEXP _EigenR_EigenR_log_real(SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_log_real(M));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_log_cplx
+Rcpp::List EigenR_log_cplx(const Eigen::MatrixXd& Re, const Eigen::MatrixXd& Im);
+RcppExport SEXP _EigenR_EigenR_log_cplx(SEXP ReSEXP, SEXP ImSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Re(ReSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Im(ImSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_log_cplx(Re, Im));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_cos_real
+Eigen::MatrixXd EigenR_cos_real(const Eigen::MatrixXd& M);
+RcppExport SEXP _EigenR_EigenR_cos_real(SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_cos_real(M));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_cos_cplx
+Rcpp::List EigenR_cos_cplx(const Eigen::MatrixXd& Re, const Eigen::MatrixXd& Im);
+RcppExport SEXP _EigenR_EigenR_cos_cplx(SEXP ReSEXP, SEXP ImSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Re(ReSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Im(ImSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_cos_cplx(Re, Im));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_sin_real
+Eigen::MatrixXd EigenR_sin_real(const Eigen::MatrixXd& M);
+RcppExport SEXP _EigenR_EigenR_sin_real(SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_sin_real(M));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_sin_cplx
+Rcpp::List EigenR_sin_cplx(const Eigen::MatrixXd& Re, const Eigen::MatrixXd& Im);
+RcppExport SEXP _EigenR_EigenR_sin_cplx(SEXP ReSEXP, SEXP ImSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Re(ReSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Im(ImSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_sin_cplx(Re, Im));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_cosh_real
+Eigen::MatrixXd EigenR_cosh_real(const Eigen::MatrixXd& M);
+RcppExport SEXP _EigenR_EigenR_cosh_real(SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_cosh_real(M));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_cosh_cplx
+Rcpp::List EigenR_cosh_cplx(const Eigen::MatrixXd& Re, const Eigen::MatrixXd& Im);
+RcppExport SEXP _EigenR_EigenR_cosh_cplx(SEXP ReSEXP, SEXP ImSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Re(ReSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Im(ImSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_cosh_cplx(Re, Im));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_sinh_real
+Eigen::MatrixXd EigenR_sinh_real(const Eigen::MatrixXd& M);
+RcppExport SEXP _EigenR_EigenR_sinh_real(SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_sinh_real(M));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_sinh_cplx
+Rcpp::List EigenR_sinh_cplx(const Eigen::MatrixXd& Re, const Eigen::MatrixXd& Im);
+RcppExport SEXP _EigenR_EigenR_sinh_cplx(SEXP ReSEXP, SEXP ImSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Re(ReSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Im(ImSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_sinh_cplx(Re, Im));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_pow_real
+Eigen::MatrixXd EigenR_pow_real(const Eigen::MatrixXd& M, const double& p);
+RcppExport SEXP _EigenR_EigenR_pow_real(SEXP MSEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_pow_real(M, p));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_pow_cplx
+Rcpp::List EigenR_pow_cplx(const Eigen::MatrixXd& Re, const Eigen::MatrixXd& Im, const std::complex<double>& p);
+RcppExport SEXP _EigenR_EigenR_pow_cplx(SEXP ReSEXP, SEXP ImSEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Re(ReSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Im(ImSEXP);
+    Rcpp::traits::input_parameter< const std::complex<double>& >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_pow_cplx(Re, Im, p));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_sqrt_real
+Eigen::MatrixXd EigenR_sqrt_real(const Eigen::MatrixXd& M);
+RcppExport SEXP _EigenR_EigenR_sqrt_real(SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_sqrt_real(M));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_sqrt_cplx
+Rcpp::List EigenR_sqrt_cplx(const Eigen::MatrixXd& Re, const Eigen::MatrixXd& Im);
+RcppExport SEXP _EigenR_EigenR_sqrt_cplx(SEXP ReSEXP, SEXP ImSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Re(ReSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Im(ImSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_sqrt_cplx(Re, Im));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_EigenR_EigenR_det_real", (DL_FUNC) &_EigenR_EigenR_det_real, 1},
@@ -375,6 +566,22 @@ static const R_CallMethodDef CallEntries[] = {
     {"_EigenR_EigenR_UtDU_cplx", (DL_FUNC) &_EigenR_EigenR_UtDU_cplx, 2},
     {"_EigenR_EigenR_lsSolve_real", (DL_FUNC) &_EigenR_EigenR_lsSolve_real, 2},
     {"_EigenR_EigenR_lsSolve_cplx", (DL_FUNC) &_EigenR_EigenR_lsSolve_cplx, 4},
+    {"_EigenR_EigenR_exp_real", (DL_FUNC) &_EigenR_EigenR_exp_real, 1},
+    {"_EigenR_EigenR_exp_cplx", (DL_FUNC) &_EigenR_EigenR_exp_cplx, 2},
+    {"_EigenR_EigenR_log_real", (DL_FUNC) &_EigenR_EigenR_log_real, 1},
+    {"_EigenR_EigenR_log_cplx", (DL_FUNC) &_EigenR_EigenR_log_cplx, 2},
+    {"_EigenR_EigenR_cos_real", (DL_FUNC) &_EigenR_EigenR_cos_real, 1},
+    {"_EigenR_EigenR_cos_cplx", (DL_FUNC) &_EigenR_EigenR_cos_cplx, 2},
+    {"_EigenR_EigenR_sin_real", (DL_FUNC) &_EigenR_EigenR_sin_real, 1},
+    {"_EigenR_EigenR_sin_cplx", (DL_FUNC) &_EigenR_EigenR_sin_cplx, 2},
+    {"_EigenR_EigenR_cosh_real", (DL_FUNC) &_EigenR_EigenR_cosh_real, 1},
+    {"_EigenR_EigenR_cosh_cplx", (DL_FUNC) &_EigenR_EigenR_cosh_cplx, 2},
+    {"_EigenR_EigenR_sinh_real", (DL_FUNC) &_EigenR_EigenR_sinh_real, 1},
+    {"_EigenR_EigenR_sinh_cplx", (DL_FUNC) &_EigenR_EigenR_sinh_cplx, 2},
+    {"_EigenR_EigenR_pow_real", (DL_FUNC) &_EigenR_EigenR_pow_real, 2},
+    {"_EigenR_EigenR_pow_cplx", (DL_FUNC) &_EigenR_EigenR_pow_cplx, 3},
+    {"_EigenR_EigenR_sqrt_real", (DL_FUNC) &_EigenR_EigenR_sqrt_real, 1},
+    {"_EigenR_EigenR_sqrt_cplx", (DL_FUNC) &_EigenR_EigenR_sqrt_cplx, 2},
     {NULL, NULL, 0}
 };
 

@@ -1,8 +1,10 @@
 #' @useDynLib EigenR
 #' @importFrom Rcpp evalCpp
+#' @noRd
 NULL
 
 #' Determinant of a matrix
+#' 
 #' @description Determinant of a real or complex matrix.
 #' 
 #' @param M a square matrix or \code{\link{SparseMatrix}}, real or complex
@@ -41,6 +43,113 @@ Eigen_det <- function(M){
   }
 }
 
+#' Absolute value of the determinant
+#' 
+#' @description Absolute value of the determinant of a real matrix.
+#' 
+#' @param M a \emph{real} square matrix
+#'
+#' @return The absolute value of the determinant of \code{M}.
+#' @export
+#' 
+#' @note `Eigen_absdet(M)` is not faster than `abs(Eigen_det(M))`.
+#' 
+#' @examples set.seed(666L)
+#' M <- matrix(rpois(25L, 1), 5L, 5L)
+#' Eigen_absdet(M)
+Eigen_absdet <- function(M){
+  stopifnot(isSquareMatrix(M))
+  stopifnot(isReal(M))
+  EigenR_absdet(M)
+}
+
+#' Logarithm of the absolute value of the determinant
+#' @description Logarithm of the absolute value of the determinant of a real 
+#'   matrix.
+#' 
+#' @param M a \emph{real} square matrix
+#'
+#' @return The logarithm of the absolute value of the determinant of \code{M}.
+#' @export
+#' 
+#' @note `Eigen_logabsdet(M)` is not faster than `log(abs(Eigen_det(M)))`.
+#' 
+#' @examples set.seed(666L)
+#' M <- matrix(rpois(25L, 1), 5L, 5L)
+#' Eigen_logabsdet(M)
+Eigen_logabsdet <- function(M){
+  stopifnot(isSquareMatrix(M))
+  stopifnot(isReal(M))
+  EigenR_logabsdet(M)
+}
+
+#' Check injectivity
+#' @description Checks whether a matrix represents an injective linear map 
+#'   (i.e. has trivial kernel).
+#' 
+#' @param M a matrix, real or complex
+#'
+#' @return A Boolean value indicating whether \code{M} represents an injective 
+#'   linear map.
+#' @export
+#' 
+#' @examples set.seed(666L)
+#' M <- matrix(rpois(35L, 1), 5L, 7L)
+#' Eigen_isInjective(M)
+Eigen_isInjective <- function(M){
+  stopifnot(is.matrix(M))
+  stopifnot(isRealOrComplex(M))
+  if(is.complex(M)){
+    EigenR_isInjective_cplx(Re(M), Im(M))
+  }else{
+    EigenR_isInjective_real(M)
+  }
+}
+
+#' Check surjectivity
+#' @description Checks whether a matrix represents a surjective linear map.
+#' 
+#' @param M a matrix, real or complex
+#'
+#' @return A Boolean value indicating whether \code{M} represents a surjective 
+#'   linear map.
+#' @export
+#' 
+#' @examples set.seed(666L)
+#' M <- matrix(rpois(35L, 1), 7L, 5L)
+#' Eigen_isSurjective(M)
+Eigen_isSurjective <- function(M){
+  stopifnot(is.matrix(M))
+  stopifnot(isRealOrComplex(M))
+  if(is.complex(M)){
+    EigenR_isSurjective_cplx(Re(M), Im(M))
+  }else{
+    EigenR_isSurjective_real(M)
+  }
+}
+
+#' Check invertibility
+#' @description Checks whether a matrix is invertible.
+#' 
+#' @param M a matrix, real or complex
+#'
+#' @return A Boolean value indicating whether \code{M} is invertible.
+#' @export
+#' 
+#' @examples set.seed(666L)
+#' M <- matrix(rpois(25L, 1), 5L, 5L)
+#' Eigen_isInvertible(M)
+Eigen_isInvertible <- function(M){
+  stopifnot(is.matrix(M))
+  stopifnot(isRealOrComplex(M))
+  if(is.complex(M)){
+    EigenR_isInvertible_cplx(Re(M), Im(M))
+  }else{
+    EigenR_isInvertible_real(M)
+  }
+}
+
+
 #' Rank of a matrix
 #' @description Rank of a real or complex matrix.
 #'
@@ -78,6 +187,66 @@ Eigen_inverse <- function(M){
   Minv
 }
 
+#' Pseudo-inverse of a matrix
+#' 
+#' @description Pseudo-inverse of a real or complex matrix 
+#'   (Moore-Penrose generalized inverse).
+#'
+#' @param M a matrix, real or complex, not necessarily square
+#'
+#' @return The pseudo-inverse matrix of \code{M}.
+#' @export
+#' 
+#' @examples library(EigenR)
+#' M <- rbind(
+#'   toeplitz(c(3, 2, 1)), 
+#'   toeplitz(c(4, 5, 6))
+#' )
+#' Mplus <- Eigen_pinverse(M)
+#' all.equal(M, M %*% Mplus %*% M)
+#' all.equal(Mplus, Mplus %*% M %*% Mplus)
+#' #' a complex matrix
+#' A <- M + 1i * M[, c(3L, 2L, 1L)]
+#' Aplus <- Eigen_pinverse(A)
+#' AAplus <- A %*% Aplus
+#' all.equal(AAplus, t(Conj(AAplus))) #' `A %*% Aplus` is Hermitian
+#' AplusA <- Aplus %*% A
+#' all.equal(AplusA, t(Conj(AplusA))) #' `Aplus %*% A` is Hermitian
+Eigen_pinverse <- function(M){
+  stopifnot(isRealOrComplex(M))
+  if(is.complex(M)){
+    parts <- EigenR_pseudoInverse_cplx(Re(M), Im(M))
+    Mpinv <- parts[["real"]] + 1i * parts[["imag"]]
+  }else{
+    Mpinv <- EigenR_pseudoInverse_real(M)
+  }
+  Mpinv
+}
+
+#' Dimension of kernel
+#' 
+#' @description Dimension of the kernel of a matrix.
+#' 
+#' @param M a matrix, real or complex
+#'
+#' @return An integer, the dimension of the kernel of \code{M}.
+#' @export
+#'
+#' @seealso \code{\link{Eigen_isInjective}}, \code{\link{Eigen_kernel}}.
+#' 
+#' @examples set.seed(666L)
+#' M <- matrix(rpois(35L, 1), 5L, 7L)
+#' Eigen_kernelDimension(M)
+Eigen_kernelDimension <- function(M){
+  stopifnot(is.matrix(M))
+  stopifnot(isRealOrComplex(M))
+  if(is.complex(M)){
+    EigenR_kernelDimension_cplx(Re(M), Im(M))
+  }else{
+    EigenR_kernelDimension_real(M)
+  }
+}
+
 #' Kernel of a matrix
 #' 
 #' @description Kernel (null-space) of a real or complex matrix.
@@ -89,6 +258,8 @@ Eigen_inverse <- function(M){
 #' @return A basis of the kernel of \code{M}. With \code{method = "COD"}, the 
 #'   basis is orthonormal, while it is not with \code{method = "LU"}.
 #' @export
+#' 
+#' @seealso \code{\link{Eigen_kernelDimension}}.
 #'
 #' @examples set.seed(666)
 #' M <- matrix(rgamma(30L, 12, 1), 10L, 3L)
@@ -100,16 +271,16 @@ Eigen_inverse <- function(M){
 Eigen_kernel <- function(M, method = "COD"){
   stopifnot(is.matrix(M))
   stopifnot(isRealOrComplex(M))
-  method <- match.arg(method, c("COD", "LU"))
+  method <- match.arg(tolower(method), c("cod", "lu"))
   if(is.complex(M)){
-    if(method == "COD"){
+    if(method == "cod"){
       parts <- EigenR_kernel_COD_cplx(Re(M), Im(M))
     }else{
       parts <- EigenR_kernel_LU_cplx(Re(M), Im(M))
     }
     parts[["real"]] + 1i * parts[["imag"]]
   }else{
-    if(method == "COD"){
+    if(method == "cod"){
       EigenR_kernel_COD_real(M)
     }else{
       EigenR_kernel_LU_real(M)
@@ -132,20 +303,20 @@ Eigen_kernel <- function(M, method = "COD"){
 Eigen_range <- function(M, method = "QR"){
   stopifnot(is.matrix(M))
   stopifnot(isRealOrComplex(M))
-  method <- match.arg(method, c("LU", "QR", "COD"))
+  method <- match.arg(tolower(method), c("lu", "qr", "cod"))
   if(is.complex(M)){
-    if(method == "QR"){
+    if(method == "qr"){
       parts <- EigenR_image_QR_cplx(Re(M), Im(M))
-    }else if(method == "LU"){
+    }else if(method == "lu"){
       parts <- EigenR_image_LU_cplx(Re(M), Im(M))
     }else{
       parts <- EigenR_image_COD_cplx(Re(M), Im(M))
     }
     parts[["real"]] + 1i * parts[["imag"]]
   }else{
-    if(method == "QR"){
+    if(method == "qr"){
       EigenR_image_QR_real(M)
-    }else if(method == "LU"){
+    }else if(method == "lu"){
       EigenR_image_LU_real(M)
     }else{
       EigenR_image_COD_real(M)
@@ -268,6 +439,9 @@ Eigen_UtDU <- function(M){
 #' @param A a \code{n*p} matrix, real or complex
 #' @param b a vector of length \code{n} or a matrix with \code{n} rows, 
 #'   real or complex
+#' @param method the method used to solve the problem, either \code{"svd"} 
+#'   (based on the SVD decomposition) or \code{"cod"} (based on the 
+#'   complete orthogonal decomposition)
 #'
 #' @return The solution \code{X} of the least-squares problem \code{AX ~= b} 
 #'   (similar to \code{lm.fit(A, b)$coefficients}). This is a matrix if 
@@ -280,18 +454,28 @@ Eigen_UtDU <- function(M){
 #' b <- rnorm(n)
 #' lsfit <- Eigen_lsSolve(A, b)
 #' b - A %*% lsfit # residuals
-Eigen_lsSolve <- function(A, b){
+Eigen_lsSolve <- function(A, b, method = "cod"){
+  method <- match.arg(tolower(method), c("svd", "cod"))
   stopifnot(is.matrix(A)) 
   stopifnot(is.atomic(b))
   b <- cbind(b)
   stopifnot(nrow(A) == nrow(b))
   stopifnot(is.numeric(A) || is.complex(A))
   stopifnot(is.numeric(b) || is.complex(b))
-  if(is.complex(A) || is.complex(b)){
-    parts <- EigenR_lsSolve_cplx(Re(A), Im(A), Re(b), Im(b))
-    parts[["real"]][,] + 1i * parts[["imag"]][,]
+  if(method == "svd"){
+    if(is.complex(A) || is.complex(b)){
+      parts <- EigenR_lsSolve_cplx(Re(A), Im(A), Re(b), Im(b))
+      parts[["real"]][,] + 1i * parts[["imag"]][,]
+    }else{
+      EigenR_lsSolve_real(A, b)[,]
+    }
   }else{
-    EigenR_lsSolve_real(A, b)[,]
+    if(is.complex(A) || is.complex(b)){
+      parts <- EigenR_lsSolve_cod_cplx(Re(A), Im(A), Re(b), Im(b))
+      parts[["real"]][,] + 1i * parts[["imag"]][,]
+    }else{
+      EigenR_lsSolve_cod_real(A, b)[,]
+    }  	
   }
 }
 

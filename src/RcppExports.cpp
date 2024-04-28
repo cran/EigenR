@@ -162,6 +162,29 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// EigenR_Hessenberg_real
+Rcpp::List EigenR_Hessenberg_real(const Eigen::MatrixXd& M);
+RcppExport SEXP _EigenR_EigenR_Hessenberg_real(SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_Hessenberg_real(M));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_Hessenberg_cplx
+Rcpp::List EigenR_Hessenberg_cplx(const Eigen::MatrixXd& Re, const Eigen::MatrixXd& Im);
+RcppExport SEXP _EigenR_EigenR_Hessenberg_cplx(SEXP ReSEXP, SEXP ImSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Re(ReSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Im(ImSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_Hessenberg_cplx(Re, Im));
+    return rcpp_result_gen;
+END_RCPP
+}
 // EigenR_image_LU_real
 Eigen::MatrixXd EigenR_image_LU_real(const Eigen::MatrixXd& M);
 RcppExport SEXP _EigenR_EigenR_image_LU_real(SEXP MSEXP) {
@@ -630,6 +653,29 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// EigenR_realSchur
+Rcpp::List EigenR_realSchur(const Eigen::MatrixXd& M);
+RcppExport SEXP _EigenR_EigenR_realSchur(SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_realSchur(M));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EigenR_complexSchur
+Rcpp::List EigenR_complexSchur(const Eigen::MatrixXd& Re, const Eigen::MatrixXd& Im);
+RcppExport SEXP _EigenR_EigenR_complexSchur(SEXP ReSEXP, SEXP ImSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Re(ReSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Im(ImSEXP);
+    rcpp_result_gen = Rcpp::wrap(EigenR_complexSchur(Re, Im));
+    return rcpp_result_gen;
+END_RCPP
+}
 // EigenR_isInjective_real
 bool EigenR_isInjective_real(const Eigen::MatrixXd& M);
 RcppExport SEXP _EigenR_EigenR_isInjective_real(SEXP MSEXP) {
@@ -713,6 +759,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_EigenR_EigenR_det_sparse_cplx", (DL_FUNC) &_EigenR_EigenR_det_sparse_cplx, 5},
     {"_EigenR_EigenR_absdet", (DL_FUNC) &_EigenR_EigenR_absdet, 1},
     {"_EigenR_EigenR_logabsdet", (DL_FUNC) &_EigenR_EigenR_logabsdet, 1},
+    {"_EigenR_EigenR_Hessenberg_real", (DL_FUNC) &_EigenR_EigenR_Hessenberg_real, 1},
+    {"_EigenR_EigenR_Hessenberg_cplx", (DL_FUNC) &_EigenR_EigenR_Hessenberg_cplx, 2},
     {"_EigenR_EigenR_image_LU_real", (DL_FUNC) &_EigenR_EigenR_image_LU_real, 1},
     {"_EigenR_EigenR_image_LU_cplx", (DL_FUNC) &_EigenR_EigenR_image_LU_cplx, 2},
     {"_EigenR_EigenR_image_QR_real", (DL_FUNC) &_EigenR_EigenR_image_QR_real, 1},
@@ -753,6 +801,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_EigenR_EigenR_QR_cplx", (DL_FUNC) &_EigenR_EigenR_QR_cplx, 2},
     {"_EigenR_EigenR_rank_real", (DL_FUNC) &_EigenR_EigenR_rank_real, 1},
     {"_EigenR_EigenR_rank_cplx", (DL_FUNC) &_EigenR_EigenR_rank_cplx, 2},
+    {"_EigenR_EigenR_realSchur", (DL_FUNC) &_EigenR_EigenR_realSchur, 1},
+    {"_EigenR_EigenR_complexSchur", (DL_FUNC) &_EigenR_EigenR_complexSchur, 2},
     {"_EigenR_EigenR_isInjective_real", (DL_FUNC) &_EigenR_EigenR_isInjective_real, 1},
     {"_EigenR_EigenR_isInjective_cplx", (DL_FUNC) &_EigenR_EigenR_isInjective_cplx, 2},
     {"_EigenR_EigenR_isSurjective_real", (DL_FUNC) &_EigenR_EigenR_isSurjective_real, 1},

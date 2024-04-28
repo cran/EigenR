@@ -49,6 +49,14 @@ EigenR_logabsdet <- function(M) {
     .Call('_EigenR_EigenR_logabsdet', PACKAGE = 'EigenR', M)
 }
 
+EigenR_Hessenberg_real <- function(M) {
+    .Call('_EigenR_EigenR_Hessenberg_real', PACKAGE = 'EigenR', M)
+}
+
+EigenR_Hessenberg_cplx <- function(Re, Im) {
+    .Call('_EigenR_EigenR_Hessenberg_cplx', PACKAGE = 'EigenR', Re, Im)
+}
+
 EigenR_image_LU_real <- function(M) {
     .Call('_EigenR_EigenR_image_LU_real', PACKAGE = 'EigenR', M)
 }
@@ -207,6 +215,14 @@ EigenR_rank_real <- function(M) {
 
 EigenR_rank_cplx <- function(Re, Im) {
     .Call('_EigenR_EigenR_rank_cplx', PACKAGE = 'EigenR', Re, Im)
+}
+
+EigenR_realSchur <- function(M) {
+    .Call('_EigenR_EigenR_realSchur', PACKAGE = 'EigenR', M)
+}
+
+EigenR_complexSchur <- function(Re, Im) {
+    .Call('_EigenR_EigenR_complexSchur', PACKAGE = 'EigenR', Re, Im)
 }
 
 EigenR_isInjective_real <- function(M) {

@@ -1,6 +1,12 @@
+# EigenR 1.3.0
+
+New features: Schur decomposition and Hessenberg decomposition.
+
+
 # EigenR 1.2.3
 
 Fixed a mistake in `Eigen_UtDU`.
+
 
 # EigenR 1.2.2
 
